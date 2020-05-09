@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #e8f0fe;
+  background: #232129;
   border-radius: 10px;
   border: 2px solid #232129;
   padding: 16px;
   width: 100%;
-  color: #232129;
+  color: #e8f0fe;
 
   display: flex;
   align-items: center;
