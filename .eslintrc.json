@@ -25,6 +25,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "no-unused-expressions": "off",
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/camelcase": "off",
