@@ -6,7 +6,7 @@ import { FormHandles } from '@unform/core';
 import logoImg from '../../assets/logo.svg';
 import { Container, Content, Background } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -63,9 +63,8 @@ const SignIn: React.FC = () => {
           <a href="/forgot">Forgot my password</a>
         </Form>
         <a href="/">
-          <FiLogIn />
-I am new here
-</a>
+          <FiLogIn />I am new here
+        </a>
       </Content>
       <Background />
     </Container>
