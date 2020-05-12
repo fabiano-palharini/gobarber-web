@@ -39,8 +39,10 @@ const SignIn: React.FC = () => {
 
         signIn({ email: data.email, password: data.password });
       } catch (err) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        }
       }
     },
     [signIn],
@@ -63,8 +65,9 @@ const SignIn: React.FC = () => {
           <a href="/forgot">Forgot my password</a>
         </Form>
         <a href="/">
-          <FiLogIn />I am new here
-        </a>
+          <FiLogIn />
+I am new here
+</a>
       </Content>
       <Background />
     </Container>
