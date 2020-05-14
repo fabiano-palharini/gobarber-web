@@ -46,7 +46,12 @@ const SignIn: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        addToast();
+        addToast({
+          type: 'error',
+          title: 'Authentication error',
+          description:
+            'An error happened during authentication. Please check your credentials',
+        });
       }
     },
     [signIn, addToast],
@@ -69,9 +74,8 @@ const SignIn: React.FC = () => {
           <a href="/forgot">Forgot my password</a>
         </Form>
         <a href="/">
-          <FiLogIn />
-I am new here
-</a>
+          <FiLogIn />I am new here
+        </a>
       </Content>
       <Background />
     </Container>
