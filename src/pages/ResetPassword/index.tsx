@@ -44,10 +44,6 @@ const ResetPassword: React.FC = () => {
           throw new Error();
         }
 
-        console.log(password);
-        console.log(passwordConfirmation);
-        console.log(token);
-
 
         await api.post('/password/reset', {
           password,
@@ -56,9 +52,7 @@ const ResetPassword: React.FC = () => {
         });
 
         history.push('/');
-        console.log('falco');
       } catch (err) {
-        console.log(err);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
