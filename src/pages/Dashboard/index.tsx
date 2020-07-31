@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logoImg from '../../assets/logo.svg';
 import { FiPower, FiClock } from 'react-icons/fi';
-import { Container, Header, HeaderContent, Profile, Content, Schedule, Calendar, NextAppointment } from './styles';
+import { Container, Header, HeaderContent, Profile, Content, Schedule, Section ,Calendar, Appointment, NextAppointment } from './styles';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
+  const [ selectedDate, setSelectedDate ] = useState(new Date());
   const { signOut, user } = useAuth();
 
   return (
@@ -47,6 +48,55 @@ const Dashboard: React.FC = () => {
             </span>
           </div>
         </NextAppointment>
+
+        <Section>
+          <strong>Morning</strong>
+          <Appointment>
+            <span>
+              <FiClock />
+              08:00
+            </span>
+            <div>
+              <img src="https://avatars1.githubusercontent.com/u/32514208?s=460&v=4" alt="Fabiano Falco"/>
+              <strong>Fabiano Falco</strong>
+            </div>
+          </Appointment>
+          <Appointment>
+            <span>
+              <FiClock />
+              10:00
+            </span>
+            <div>
+              <img src="https://avatars1.githubusercontent.com/u/32514208?s=460&v=4" alt="Fabiano Falco"/>
+              <strong>Fabiano Falco</strong>
+            </div>
+          </Appointment>
+        </Section>
+
+        <Section>
+          <strong>Afternoon</strong>
+          <Appointment>
+            <span>
+              <FiClock />
+              13:00
+            </span>
+            <div>
+              <img src="https://avatars1.githubusercontent.com/u/32514208?s=460&v=4" alt="Fabiano Falco"/>
+              <strong>Fabiano Falco</strong>
+            </div>
+          </Appointment>
+          <Appointment>
+            <span>
+              <FiClock />
+              15:00
+            </span>
+            <div>
+              <img src="https://avatars1.githubusercontent.com/u/32514208?s=460&v=4" alt="Fabiano Falco"/>
+              <strong>Fabiano Falco</strong>
+            </div>
+          </Appointment>
+        </Section>
+
       </Schedule>
 
       <Calendar />
