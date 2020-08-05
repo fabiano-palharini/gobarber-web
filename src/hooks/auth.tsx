@@ -22,6 +22,7 @@ interface AuthContextData {
   user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  updateUser(user: User): void;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -63,8 +64,20 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
+  //updatedData: Partial<User>  com Partial (typescript) vc diz que recebe apenas parte do objeto
+  const updateUser = useCallback((user: User) => {
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+    setData({
+      token: data.token,
+      user
+    })
+  }, [setData, data.token]);
+
+
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
