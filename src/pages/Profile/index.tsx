@@ -16,7 +16,9 @@ import { useAuth } from '../../hooks/auth';
 interface ProfileFormData {
   name: string;
   email: string;
+  old_password: string;
   password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -53,19 +55,44 @@ const Profile: React.FC = () => {
           email: Yup.string()
             .required('E-mail is mandatory')
             .email('Please inform a valid email'),
-          password: Yup.string().min(6, 'At least 6 chars'),
+          old_password: Yup.string(),
+          password: Yup.string().when('old_password', {
+            is: val => !!val.length,
+            then: Yup.string().required('Mandatory field'),
+            otherwise: Yup.string(),
+          }),
+          password_confirmation: Yup.string().when('old_password', {
+            is: val => !!val.length,
+            then: Yup.string().required('Mandatory field'),
+            otherwise: Yup.string(),
+          }).oneOf(
+            [Yup.ref('password'), null],
+            'Password confirmation does not match'
+          ),
         });
 
         await schema.validate(data, { abortEarly: false });
 
-        await api.post('/users', data);
+        //object.assign une os objetos
+        const formData = Object.assign({
+          name: data.name,
+          email: data.email,
+        }, data.old_password ? {
+          old_password: data.old_password,
+          password: data.password,
+          password_confirmation: data.password_confirmation,
+        } : {});
 
-        history.push('/');
+        const response = await api.put('/profile', formData);
+
+        updateUser(response.data);
+
+        history.push('/dashboard');
 
         addToast({
           type: 'success',
-          title: 'User saved !',
-          description: 'You can access GoBarber now !!!',
+          title: 'Profile updated!',
+          description: 'Your profile has been updated successfully!',
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -78,7 +105,7 @@ const Profile: React.FC = () => {
           type: 'error',
           title: 'Error when saving the information',
           description:
-            'An error happened when saving your information. Please check it and try again.',
+            'An error happened when saving your profile information. Please check it and try again.',
         });
       }
     },
