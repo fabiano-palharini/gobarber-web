@@ -9,6 +9,7 @@ import api from '../../services/api';
 import { isToday, format, isAfter } from 'date-fns';
 import enUS from 'date-fns/locale/en-US'
 import { parseISO } from 'date-fns/esm';
+import { Link } from 'react-router-dom';
 
 
 interface MonthAvailabilityItem {
@@ -133,7 +134,7 @@ const Dashboard: React.FC = () => {
           <img src={user.avatar_url} alt={user.name} />
           <div>
             <span>Bem-vindo, </span>
-            <strong>{ user.name } </strong>
+            <Link to="/profile"><strong>{ user.name } </strong></Link>
           </div>
         </Profile>
 
